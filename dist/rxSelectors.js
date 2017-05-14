@@ -1,0 +1,15 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getNodeData = exports.getNodeData = function getNodeData(state) {
+  return state.rx.data;
+};
+var isLoading = exports.isLoading = function isLoading(state) {
+  return state.rx.loading;
+};
+var getInternetStatus = exports.getInternetStatus = function getInternetStatus(state) {
+  return state.rx.data.internet;
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9yeFNlbGVjdG9ycy5qcyJdLCJuYW1lcyI6WyJnZXROb2RlRGF0YSIsInN0YXRlIiwicngiLCJkYXRhIiwiaXNMb2FkaW5nIiwibG9hZGluZyIsImdldEludGVybmV0U3RhdHVzIiwiaW50ZXJuZXQiXSwibWFwcGluZ3MiOiI7Ozs7O0FBQU8sSUFBTUEsb0NBQWMsU0FBZEEsV0FBYyxDQUFDQyxLQUFEO0FBQUEsU0FBV0EsTUFBTUMsRUFBTixDQUFTQyxJQUFwQjtBQUFBLENBQXBCO0FBQ0EsSUFBTUMsZ0NBQVksU0FBWkEsU0FBWSxDQUFDSCxLQUFEO0FBQUEsU0FBV0EsTUFBTUMsRUFBTixDQUFTRyxPQUFwQjtBQUFBLENBQWxCO0FBQ0EsSUFBTUMsZ0RBQW9CLFNBQXBCQSxpQkFBb0IsQ0FBQ0wsS0FBRDtBQUFBLFNBQVdBLE1BQU1DLEVBQU4sQ0FBU0MsSUFBVCxDQUFjSSxRQUF6QjtBQUFBLENBQTFCIiwiZmlsZSI6InJ4U2VsZWN0b3JzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNvbnN0IGdldE5vZGVEYXRhID0gKHN0YXRlKSA9PiBzdGF0ZS5yeC5kYXRhO1xuZXhwb3J0IGNvbnN0IGlzTG9hZGluZyA9IChzdGF0ZSkgPT4gc3RhdGUucngubG9hZGluZztcbmV4cG9ydCBjb25zdCBnZXRJbnRlcm5ldFN0YXR1cyA9IChzdGF0ZSkgPT4gc3RhdGUucnguZGF0YS5pbnRlcm5ldDsiXX0=

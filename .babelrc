@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "es2015"
+  ],
+  "plugins": [
+    ["transform-react-jsx", { "pragma":"h" }],
+    ["module-resolver", {
+    "root": ["."],
+    "alias": {
+        "react": "preact-compat",
+        "react-dom": "preact-compat"
+    }
+    }]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul",
+        ["transform-react-jsx", { "pragma": "h" }]
+      ]
+    }
+  }
+}
