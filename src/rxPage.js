@@ -9,6 +9,35 @@ import { getNodeData, isLoading } from './rxSelectors';
 
 import { Box } from './components/box.js';
 
+const toHHMMSS = (secs, plus) => {
+  let sec_num = parseInt(secs, 10) + plus;
+  let days    = Math.floor(sec_num / 86400) % 24;
+  let hours   = Math.floor(sec_num / 3600) % 24;
+  let minutes = Math.floor(sec_num / 60) % 60;
+  let seconds = sec_num % 60;
+  return [days,hours,minutes,seconds]
+        .map(v => v < 10 ? "0" + v : v)
+        //.filter((v,i) => v !== "00" || i > 0)
+        .join(":");
+};
+
+class SystemBox extends Component {
+  render() {
+    if (typeof this.props.node.uptime !== 'undefined') {
+      this.props.update();
+      return (
+            <Box title={I18n.t('System')}>
+              <span>
+                <b>{I18n.t('Uptime')} </b>{toHHMMSS(this.props.node.uptime,this.props.count)}<br/>
+              </span>
+            </Box>
+      );
+    }
+    return (<span></span>);
+  }
+}
+
+
 export class Page extends Component {
   
   componentDidMount() {
@@ -17,6 +46,7 @@ export class Page extends Component {
 
   componentWillUnmount() {
     this.props.stopTimer();
+    this.stopCount();
   }
 
   loading(option, nodeData){
@@ -30,11 +60,27 @@ export class Page extends Component {
     );
   }
 
+  startCount() {
+    if (typeof this.count === 'undefined') {
+      this.setState({plusTime: 0});
+      this.count = setInterval(()=>{
+        let newTime = this.state.plusTime + 1;
+        this.setState({plusTime: newTime});
+      },1000);
+    }
+  }
+
+  stopCount() {
+    clearInterval(this.count);
+    this.setState({plusTime:0});
+    delete this.count;
+  }
+
   nodeStatus(node){
     if (node.hostname) {
+      this.startCount();
       return (
         <div>
-
           <Box title={I18n.t('Most Active')}>
                 <span style={{float:'right',fontSize:'2.7em'}}>{node.most_active.signal}</span>
                 <span style={{fontSize:'1.4em'}} onClick={()=>this.props.changeNode(node.most_active.hostname.split('_')[0])}><b>{node.most_active.hostname.split('_')[0]}</b></span><br/>
@@ -42,6 +88,8 @@ export class Page extends Component {
                 <b>{I18n.t('Traffic')} </b> {Math.round((node.most_active.rx_bytes + node.most_active.tx_bytes)/1024/1024)}MB
                <div style={{clear:'both'}}></div>
            </Box>
+
+           <SystemBox node={node} count={this.state.plusTime} update={this.startCount.bind(this)}/>
 
             <Box title={I18n.t('Internet connection')}>
               <span>
