@@ -9,7 +9,6 @@ import {
   GET_SIGNAL_SUCCESS,
   GET_TRAFFIC,
   GET_TRAFFIC_SUCCESS,
-  GET_INTERNET_STATUS,
   GET_INTERNET_STATUS_SUCCESS
 
 } from './rxConstants';
@@ -29,7 +28,7 @@ import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-const nodeStatus = ( action$, store, { wsAPI } ) =>
+export const nodeStatus = ( action$, store, { wsAPI } ) =>
   action$.ofType(GET_NODE_STATUS)
     .mergeMap(() => getNodeStauts(wsAPI, store.getState().meta.sid))
     .map( payload => ({ type: GET_NODE_STATUS_SUCCESS, payload }))

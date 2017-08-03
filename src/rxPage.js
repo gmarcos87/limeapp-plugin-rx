@@ -1,8 +1,8 @@
+/*global I18n */
 import { h, Component } from 'preact';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'preact-redux';
-import { Link } from 'preact-router/match';
 
 import { getNodeStatus, stopTimer, changeNode } from './rxActions';
 import { getNodeData, isLoading } from './rxSelectors';
@@ -17,7 +17,6 @@ const toHHMMSS = (secs, plus) => {
   let seconds = sec_num % 60;
   return [days,hours,minutes,seconds]
         .map(v => v < 10 ? "0" + v : v)
-        //.filter((v,i) => v !== "00" || i > 0)
         .join(":");
 };
 

@@ -1,4 +1,4 @@
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
 import * as c from '../src/rxConstants';
 import { initialState, reducer } from '../src/rxReducer';
 
@@ -8,6 +8,7 @@ describe('Reducer methods', () => {
   it('Initial State', () => {
     let expectedProps = [
       'loading',
+      'interval',
       'data'
     ].sort();
     let actualProps = Object.keys(initialState).sort();

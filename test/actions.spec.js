@@ -8,7 +8,7 @@ describe('Dispatch action', () => {
     let dispatched = [];
     change((action)=> dispatched.push(action),'');
     expect(JSON.stringify(dispatched)).to.be.equal(JSON.stringify([
-      { type: limePlugin.store.constants.GET_NODE_STATUS }
+      { type: limePlugin.store.constants.GET_NODE_STATUS, payload: {}}
     ]));
   });
 });

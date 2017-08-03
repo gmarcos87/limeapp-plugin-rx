@@ -3,67 +3,67 @@ import limeCorePlugin from '../src/index';
 import { assert } from 'chai';
 
 import { ActionsObservable } from 'redux-observable';
-import { Observable } from 'rxjs/Observable';
+
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
 
 const c = limeCorePlugin.store.constants;
-const epics = limeCorePlugin.store.epics;
+import epics from '../src/rxEpics';
 
-//Epic test util
-const epicAssert = (epic,options,compare,done) => {
-  return epic(ActionsObservable.of(options.action),options.store, options.api)
+const epicAssert = (epic,options,compare) => {
+  const actions = new Subject();
+  const actions$ = new ActionsObservable(actions);
+  const store = { getState: () => options.store };
+  
+  epic(actions$, store, options.api)
+    .take(options.result.length)
     .toArray()
-    .subscribe(actualOutputActions => {
-      compare(actualOutputActions, options.result);
-      done();
-    });
-};
+    .subscribe(compare);
 
-const epicErrorAssert = (epic,options,compare,done) => {
-  return epic(ActionsObservable.of(options.action),options.store, options.api)
-    .toArray()
-    .subscribe(
-    ()=>{},
-    ()=>{},
-    actualOutputActions => {
-      compare(actualOutputActions, options.result);
-      done();
-    });
+  if (options.action.length) {
+    options.action.map(act => actions.next(act));
+  } else {
+    actions.next(options.action);
+  }
 };
 
 //TESTS
 describe('Status epics', () => {
   it('Get status', (done) => {
     
-    let onAction = {
-      type: c.GET_NODE_STATUS
+    const onAction = {
+      type: c.GET_NODE_STATUS,
+      payload: {}
     };
 
-    let expectedOutput = {
+    const expectedOutput = {
       type: c.GET_NODE_STATUS_SUCCESS,
       payload: {
         test: 'ok'
       }
     };
 
-    let wsAPI = {
-      call: (sid,path,opt) => Observable.of({test:'ok'})
+    const wsAPI = {
+      call: () => Observable.of({test:'ok'})
     };
 
-    let options = {
-      action: onAction,
+    const options = {
+      action: [onAction],
       result: [expectedOutput],
-      store: {meta:{sid:123}},
+      store: { meta: { sid: 123 } },
       api: { wsAPI }
     };
 
     epicAssert(
       epics.nodeStatus,
       options,
-      assert.deepEqual,
-      done
+      (actions) => {
+        assert.deepEqual(actions,[expectedOutput]);
+        done();
+      }
     );
   });
 

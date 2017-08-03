@@ -9,6 +9,6 @@ import { RxMenu } from '../src/rxMenu';
 describe('Menu item', () => {
   it('Render html', () => {
     expect(<RxMenu />)
-        .to.eql(<a href='#/rx' translate="yes">Home</a>);
+        .to.eql(<a href='#/rx'>Status</a>);
   });
 });
