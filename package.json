@@ -7,7 +7,9 @@
     "build": "npm run lint && npm run test && babel src -s inline -d dist",
     "lint": "eslint {src,test}",
     "translations": "node ./node_modules/i18nline/bin/i18nline.js export",
-    "test": "cross-env NODE_ENV=test nyc mocha"
+    "test": "cross-env NODE_ENV=test nyc mocha",
+    "precommit": "npm run build",
+    "prepush": "npm test build"
   },
   "author": "Marcos Gutierrez <gmarcos87@gmail.com>",
   "license": "GPLV3",
@@ -26,6 +28,7 @@
     "cross-env": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.14.3",
     "install": "^0.8.8",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.5",
