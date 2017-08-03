@@ -4,8 +4,8 @@
   "description": "Rx module for LiMe App",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -s inline -d dist",
-    "eslint": "eslint {src,test}",
+    "build": "npm run lint && npm run test && babel src -s inline -d dist",
+    "lint": "eslint {src,test}",
     "translations": "node ./node_modules/i18nline/bin/i18nline.js export",
     "test": "cross-env NODE_ENV=test nyc mocha"
   },
@@ -40,6 +40,7 @@
     "preact-jsx-chai": "^2.2.1",
     "preact-redux": "^2.0.1",
     "preact-render-to-string": "^3.6.1",
+    "preact-router": "^2.5.5",
     "preact-router-redux": "^4.1.0",
     "redux": "^3.6.0",
     "redux-mock-store": "^1.2.3",

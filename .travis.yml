@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 7.8.0
+  
+script: npm run build
+
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: gmarcos87@gmail.com
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
