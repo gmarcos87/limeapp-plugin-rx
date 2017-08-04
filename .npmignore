@@ -41,5 +41,5 @@ jspm_packages
 .nyc_output
 coverage
 
-# Builds
-dist
+# CI configuration
+.travis.yml
