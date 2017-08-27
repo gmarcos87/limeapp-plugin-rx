@@ -6,9 +6,9 @@ chai.use(assertJsx);
 
 import { RxMenu } from '../src/rxMenu';
 
-describe('Menu item', () => {
-  it('Render html', () => {
-    expect(<RxMenu />)
-        .to.eql(<a href='#/rx'>Status</a>);
-  });
-});
+// describe('Menu item', () => {
+//   it('Render html', () => {
+//     expect(<RxMenu />)
+//         .to.eql(<a href='#/rx'>Status</a>);
+//   });
+// });
